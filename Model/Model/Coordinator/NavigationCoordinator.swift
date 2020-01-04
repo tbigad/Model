@@ -156,7 +156,12 @@ extension NavigationCoordinator: UIGestureRecognizerDelegate {
 // MARK: - NavigationControllerBackButtonDelegate
 extension NavigationCoordinator: NavigationControllerBackButtonDelegate {
     func navigationControllerShouldPopByBackButton(_ navigationController: UINavigationController) -> Bool {
-        return handleIntercativeDismissal(.navigationBackButton)
+        if #available(iOS 13, *) {
+            return handleIntercativeDismissal(.navigationBackButton)
+        } else {
+            self.popViewController(animated: true)
+            return true
+        }
     }
 }
 
